@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  background-color: #fff;
+  color: #121212;
+}
+
+.nyt-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.nyt-header {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.nyt-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nyt-header h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+.nyt-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.article-card {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s ease-in-out;
+}
+
+.article-card:hover {
+  background-color: #f9f9f9;
+}
+
+.article-text h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem 0;
+  line-height: 1.4;
+}
+
+.article-text p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+  margin: 0;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #999;
+  margin-top: 0.4rem;
+}
+
+.article-image {
+  margin-top: 1rem;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
