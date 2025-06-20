@@ -5,7 +5,7 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/posts')
+    fetch('https://ai-news-blog-g7wa.onrender.com/api/posts')
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error('Failed to fetch posts:', err));
