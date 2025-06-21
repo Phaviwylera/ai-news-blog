@@ -6,7 +6,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/news')
+    fetch('https://ai-news-blog-2je5.onrender.com/api/news')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();
