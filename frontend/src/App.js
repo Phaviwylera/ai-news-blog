@@ -3,52 +3,63 @@ import './App.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://ai-news-blog-g7wa.onrender.com/api/posts')
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error('Failed to fetch posts:', err));
+    fetch('http://localhost:5000/api/news')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
+      })
+      .then((data) => {
+        console.log('Fetched posts:', data); // ✅ Check this in browser DevTools
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching posts:', error);
+        setLoading(false);
+      });
   }, []);
 
   return (
-    <div className="nyt-container">
-      <header className="nyt-header">
-        <h1>The AI Times</h1>
-        <h2>International Edition</h2>
+    <div className="app" style={{ fontFamily: '"Roboto", sans-serif', maxWidth: '800px', margin: 'auto', padding: '1rem' }}>
+      <header style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <h1 style={{ color: '#d71920' }}>India Today - Curated Summaries</h1>
+        <hr />
       </header>
 
-      <main className="nyt-main">
-        {posts.length === 0 ? (
-          <p className="loading">Loading articles...</p>
+      <main>
+        {loading ? (
+          <p>Loading...</p>
+        ) : posts.length > 0 ? (
+          posts.map((post, index) => (
+            <article key={index} style={{ padding: '1rem 0', borderBottom: '1px solid #ddd' }}>
+              <h2 style={{ fontSize: '1.2rem', color: '#222' }}>{post.title}</h2>
+              <p style={{ fontSize: '1rem', color: '#444' }}>{post.summary}</p>
+              <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ color: '#d71920' }}>
+                Read full article on India Today
+              </a>
+            </article>
+          ))
         ) : (
-          posts.map((article, i) => {
-            const title = article.title || 'Untitled Article';
-            const summary = article.summary || '';
-            const section = article.section
-              ? article.section.toLowerCase()
-              : 'general';
-            const image = article.image || null;
-
-            return (
-              <div className="article-card" key={i}>
-                <div className="article-text">
-                  <h3>{title}</h3>
-                  <p>{summary}</p>
-                  <span className="section-label">{section}</span>
-                </div>
-                {image && (
-                  <img
-                    src={image}
-                    alt={title}
-                    className="article-image"
-                  />
-                )}
-              </div>
-            );
-          })
+          <p>No posts found.</p>
         )}
       </main>
+
+      <footer>
+        <p style={{
+          fontSize: '0.85rem',
+          color: '#555',
+          marginTop: '2rem',
+          padding: '1rem',
+          borderTop: '1px solid #ccc',
+          textAlign: 'center'
+        }}>
+          This site provides curated summaries of news content with proper attribution.
+          Full articles are available on the original publisher’s website.
+        </p>
+      </footer>
     </div>
   );
 }
